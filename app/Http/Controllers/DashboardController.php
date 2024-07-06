@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use Illuminate\Http\Request;
+use App\Models\MasterBerita; // Import the correct model
 
 class DashboardController extends Controller
 {
@@ -11,9 +13,21 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.a_dashboard.index');
-    }
+        // Ambil data jumlah barang berdasarkan status
+        $count1 = Barang::where('status', 1)->sum('stok');
+        $count2 = Barang::where('status', 2)->sum('stok');
+        $count3 = Barang::where('status', 3)->sum('stok');
+        $count4 = Barang::where('status', 4)->sum('stok');
 
+        // Ambil data berita terbaru
+        $masterBeritas = masterBerita::latest()->take(5)->get();
+
+        // Data lain yang mungkin diperlukan untuk statistik
+        $role = session('role');
+        $title = "Dashboard " . $role;
+
+        return view('admin.dashboard.index', compact('count1', 'count2', 'count3', 'count4', 'role', 'title', 'masterBeritas'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -33,7 +47,7 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         //
     }
@@ -41,7 +55,7 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         //
     }
@@ -49,7 +63,7 @@ class DashboardController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -57,7 +71,7 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         //
     }

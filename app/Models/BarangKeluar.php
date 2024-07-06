@@ -9,19 +9,13 @@ class BarangKeluar extends Model
 {
     use HasFactory;
 
-    protected $table = 'barang_keluar'; // Sesuaikan dengan nama tabel yang digunakan
-
-    protected $primaryKey = 'id_barang_keluar'; // Kolom yang digunakan sebagai primary key
-
-    protected $keyType = 'integer'; // Tipe data primary key
+    protected $table = 'barang_keluar';
 
     protected $fillable = [
         'id_peminjaman',
-        'jumlah',
         'tanggal_keluar',
     ];
 
-    // Relasi dengan tabel peminjaman
     public function peminjaman()
     {
         return $this->belongsTo(Peminjaman::class, 'id_peminjaman');

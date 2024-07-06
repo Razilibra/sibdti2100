@@ -9,15 +9,15 @@ class KategoriBerita extends Model
 {
     use HasFactory;
 
-    // Menentukan primary key tabel
-    protected $primaryKey = 'id_kategori_berita';
+    protected $table = 'kategori_berita';
 
-    // Menentukan kolom yang bisa diisi secara massal
+    protected $primarykey ='kategori_berita_id';
     protected $fillable = [
         'nama_kategori',
         'deskripsi',
     ];
-
-    // Menggunakan timestamps
-    public $timestamps = true;
+    public function kategoriBerita()
+    {
+        return $this->hasmany(MasterBerita::class, 'id');
+    }
 }

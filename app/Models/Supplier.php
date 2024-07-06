@@ -9,13 +9,10 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_supplier';
+    protected $table = 'supplier';
 
     protected $fillable = [
         'nama_supplier',
         'telepon_supplier',
-        'email_supplier',
     ];
-
-    public $timestamps = true;
 }
